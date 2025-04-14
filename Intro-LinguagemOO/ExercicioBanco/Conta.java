@@ -2,16 +2,14 @@ package ExercicioBanco;
 
 public class Conta {
 
-    private int numero;
-    private String dono;
-    private double saldo;
-    private double limite;
+    protected int numero;
+    protected String dono;
+    protected double saldo;
 
-    public Conta(int numero, String dono, double saldo, double limite) {
+    public Conta(int numero, String dono, double saldo) {
         this.numero = numero;
         this.dono = dono;
         this.saldo = saldo;
-        this.limite = limite;
 
     }
 
@@ -27,9 +25,6 @@ public class Conta {
         return saldo;
     }
 
-    public double getLimite() {
-        return limite;
-    }
 
     public int setNumero() { // Mutantes sem valores para alterar
         return numero;
@@ -43,12 +38,9 @@ public class Conta {
         return saldo;
     }
 
-    public double setLimite() {
-        return limite;
-    }
 
     public void Sacar(double valor) {
-        if (valor <= (saldo + limite)) {
+        if (valor <= (saldo)) {
             saldo -= valor;
         } else {
             System.out.println("Limite indisponível");
@@ -63,4 +55,6 @@ public class Conta {
     public void exibirSaldo() {
         System.out.println("(" + this.dono + ")" + " Saldo: " + this.saldo);
     }
+
+
 }

@@ -1,5 +1,6 @@
-package ExercicioBanco;
-
+import ExercicioBanco.Conta;
+import ExercicioBanco.ContaCorrente;
+import ExercicioBanco.ContaPoupanca;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +10,6 @@ public class Banco {
         Scanner dado = new Scanner(System.in);
 
         System.out.print("Quantos usuários deseja registrar? ");
-
         ArrayList<Conta> Usuarios = new ArrayList<>();
 
         int N = dado.nextInt();
@@ -21,10 +21,22 @@ public class Banco {
             System.out.print("Digite o saldo atual do Usuário " + nome + ": ");
             double saldo = dado.nextDouble();
 
-            System.out.print("Digite o limite atual do Usuário " + nome + ": ");
-            double limite = dado.nextDouble();
 
-            Conta Usuario = new Conta(i, nome, saldo, limite);
+            // Pergunta ao usuário qual tipo de conta deseja criar
+            System.out.print("Digite o tipo de conta (1 - Corrente, 2 - Poupança): ");
+            int tipoConta = dado.nextInt();
+
+            Conta Usuario;
+            if (tipoConta == 1) {
+                // Conta Corrente
+                Usuario = new ContaCorrente(i, nome, saldo);
+                double limite = 0.05;
+                Usuario.setLimite(limite); // Define o limite para a conta corrente
+            } else {
+                // Conta Poupança
+                Usuario = new ContaPoupanca(i, nome, saldo);
+                Usuario.setTaxa(0.05); // Definindo uma taxa de 5%
+            }
 
             int decisao = 1;
             while (decisao != 0) {
@@ -44,18 +56,13 @@ public class Banco {
                 } else {
                     System.out.println("Digite um valor válido.");
                 }
-
             }
             Usuarios.add(Usuario);
-
         }
-        for (int i = 0; i < Usuarios.size(); i++) {
 
+        for (int i = 0; i < Usuarios.size(); i++) {
             Conta Usuario = Usuarios.get(i);
             Usuario.exibirSaldo();
-
         }
-
     }
-
 }
